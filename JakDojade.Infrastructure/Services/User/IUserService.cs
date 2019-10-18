@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using JakDojade.Infrastructure.Dto;
-using JakDojade.Core.Domain;
 
 namespace JakDojade.Infrastructure.Services.User
 {

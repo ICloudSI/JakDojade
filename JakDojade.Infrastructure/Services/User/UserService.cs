@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using JakDojade.Core.Repository;
 using JakDojade.Infrastructure.Dto;
-using JakDojade.Core.Domain;
 
 namespace JakDojade.Infrastructure.Services.User
 {
