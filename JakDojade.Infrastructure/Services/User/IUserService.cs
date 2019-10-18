@@ -6,13 +6,13 @@ using JakDojade.Core.Domain;
 
 namespace JakDojade.Infrastructure.Services.User
 {
-    public interface IUserService
+    public interface IUserService : IService
     {
         Task<UserDto> GetAsync(Guid id);
         Task<UserDto> GetAsync(string email);
         Task<IEnumerable<UserDto>> BrowseAsync();
-        Task Register(Guid id, string email, string username, string password,
+        Task RegisterAsync(Guid id, string email, string username, string password,
             string role = "user");
-        Task Login(string email, string password);
+        Task<TokenDto> LoginAsync(string email, string password);
     }
 }
