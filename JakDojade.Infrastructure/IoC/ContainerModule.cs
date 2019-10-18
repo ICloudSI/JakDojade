@@ -1,7 +1,7 @@
 using Autofac;
-using AutoMapper.Configuration;
 using JakDojade.Infrastructure.AutoMapper;
 using JakDojade.Infrastructure.IoC.Modules;
+using Microsoft.Extensions.Configuration;
 
 namespace JakDojade.Infrastructure.IoC
 {

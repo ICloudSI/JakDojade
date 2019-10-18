@@ -27,8 +27,8 @@ namespace JakDojade.Api.Controllers
         }
 
 
-     //   public async Task<IActionResult> Get()
-     //        => Json(await _userService.GetAsync());
+        //   public async Task<IActionResult> Get()
+        //        => Json(await _userService.GetAsync());
 
         [HttpGet("Browse")]
         public async Task<IActionResult> GetAll()
@@ -37,6 +37,20 @@ namespace JakDojade.Api.Controllers
 
             return Json(users);
         }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Post([FromBody] Register command)
+        {
+            await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Username, command.Password);
+
+            return Created("/account", null);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Post([FromBody]Login command)
+            => Json(await _userService.LoginAsync(command.Email, command.Password));
+
+
         [HttpGet("BusStop")]
         public async Task<IActionResult> GetBusStop()
         {
@@ -49,13 +63,13 @@ namespace JakDojade.Api.Controllers
                     //JsonSerializer serializer = new JsonSerializer();
                     Input array = JsonConvert.DeserializeObject<Input>(line);
                     Graph newGraph = new Graph();
-                    for(int i=0;i<array.Links.Count;i++)
+                    for (int i = 0; i < array.Links.Count; i++)
                     {
-                        newGraph.Add(array.Links[i].Source,array.Links[i].Target,array.Links[i].Distance);
+                        newGraph.Add(array.Links[i].Source, array.Links[i].Target, array.Links[i].Distance);
                     }
-                    
-                    
-                //    List<Links> links = array.links;
+
+
+                    //    List<Links> links = array.links;
                     return Json(array, new JsonSerializerSettings
                     {
                         Formatting = Formatting.Indented

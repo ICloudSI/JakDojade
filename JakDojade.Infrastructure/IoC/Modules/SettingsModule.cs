@@ -1,5 +1,5 @@
 using Autofac;
-using AutoMapper.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace JakDojade.Infrastructure.IoC.Modules
 {
@@ -14,8 +14,7 @@ namespace JakDojade.Infrastructure.IoC.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
- //           builder.RegisterInstance(_configuration.GetSettings<GeneralSettings>())
- //                  .SingleInstance();
+
 		}  
     }
 }
