@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using JakDojade.Core.Domain;
 using JakDojade.Infrastructure.Commands;
-using JakDojade.Infrastructure.Function;
 using JakDojade.Infrastructure.Services.User;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using static Microsoft.Extensions.Options.Options;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
