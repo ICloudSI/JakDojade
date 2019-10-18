@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Validation\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Repository\" />
+    <Folder Include="Dto\" />
+    <Folder Include="AutoMapper\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.5.0" />
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JakDojade.Core\JakDojade.Core.csproj" />
+  </ItemGroup>
+</Project>

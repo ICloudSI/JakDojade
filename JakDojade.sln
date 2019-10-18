@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JakDojade.Api", "JakDojade.Api\JakDojade.Api.csproj", "{1AB32648-BA83-45F4-8BFE-B50BBB73A14E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JakDojade.Core", "JakDojade.Core\JakDojade.Core.csproj", "{F053736A-9276-4601-93E3-61733D4B40C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JakDojade.Infrastructure", "JakDojade.Infrastructure\JakDojade.Infrastructure.csproj", "{EC3C1A0A-3134-4D77-887B-4AE48AC80E99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AB32648-BA83-45F4-8BFE-B50BBB73A14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AB32648-BA83-45F4-8BFE-B50BBB73A14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AB32648-BA83-45F4-8BFE-B50BBB73A14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AB32648-BA83-45F4-8BFE-B50BBB73A14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F053736A-9276-4601-93E3-61733D4B40C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F053736A-9276-4601-93E3-61733D4B40C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F053736A-9276-4601-93E3-61733D4B40C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F053736A-9276-4601-93E3-61733D4B40C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3C1A0A-3134-4D77-887B-4AE48AC80E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3C1A0A-3134-4D77-887B-4AE48AC80E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3C1A0A-3134-4D77-887B-4AE48AC80E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3C1A0A-3134-4D77-887B-4AE48AC80E99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
