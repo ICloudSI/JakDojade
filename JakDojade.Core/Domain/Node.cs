@@ -2,7 +2,7 @@ namespace JakDojade.Core.Domain
 {
     public class Node
     {
-        public int id {get; set;}
-        public string stop_name {get; set;}
+        public int Id {get; set;}
+        public string Stop_name {get; set;}
     }
 }
