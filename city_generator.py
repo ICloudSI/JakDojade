@@ -8,7 +8,7 @@ import json
 import random
 
 import networkx as nx
-# import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from config import (
     FIRST_PARTS,

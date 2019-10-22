@@ -36,7 +36,7 @@ namespace JakDojade.Api.Controllers
             return Json(users);
         }
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Post([FromBody] Register command)
         {
             await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Username, command.Password);
@@ -44,7 +44,7 @@ namespace JakDojade.Api.Controllers
             return Created("/account", null);
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Post([FromBody]Login command)
             => Json(await _userService.LoginAsync(command.Email, command.Password));
 
@@ -60,12 +60,16 @@ namespace JakDojade.Api.Controllers
                     String line = sr.ReadToEnd();
                     Input array = JsonConvert.DeserializeObject<Input>(line);
                     Graph newGraph = new Graph();
+                    for(int i=0;i<array.Links.Count;i++)
+                    {
+                        newGraph.Add(array.Links[i].Source, array.Links[i].Target, array.Links[i].Distance);
+                    }
                     for (int i = 0; i < array.Nodes.Count;i++)
                     {
                         await _nodeService.AddAsync(array.Nodes[i].Id,array.Nodes[i].Stop_name); 
                     }
 
-                    return Json(array, new JsonSerializerSettings
+                    return Json(newGraph, new JsonSerializerSettings
                     {
                         Formatting = Formatting.Indented
                     });

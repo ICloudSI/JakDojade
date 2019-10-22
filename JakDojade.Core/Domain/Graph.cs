@@ -5,75 +5,38 @@ namespace JakDojade.Core.Domain
 {
     public class Graph
     {
-        public int[,] graph;
+        public List<List<int>> graph;
         public int V = 0;
 
         public Graph()
         {
-            graph = new int[100, 100];
+            graph = new List<List<int>>();
         }
 
         public void Add(int source, int target, int distance)
         {
-            graph[source, target] = distance;
-            graph[target, source] = distance;
-            if (source > V || target > V)
+            if(graph.Count<=source || graph.Count <= target)
             {
-                V = Math.Max(source,target);
+                while(graph.Count <=source || graph.Count<=target )
+                {
+                    graph.Add(new List<int>());
+                }
             }
+            if(graph[source].Count <=target)
+            {
+                while(graph[source].Count<=target)
+                    graph[source].Add(-1);
+            }
+            if(graph[target].Count <= target)
+            {
+                while(graph[target].Count<=source)
+                    graph[target].Add(-1);
+            }
+
+            graph[source][target] = distance;
+            graph[target][source] = distance;
         }
-        static void FloydWarshall(int[,] weights, int numVerticies) {
-            double[,] dist = new double[numVerticies, numVerticies];
-            for (int i = 0; i < numVerticies; i++) {
-                for (int j = 0; j < numVerticies; j++) {
-                    dist[i, j] = double.PositiveInfinity;
-                }
-            }
- 
-            for (int i = 0; i < weights.GetLength(0); i++) {
-                dist[weights[i, 0] - 1, weights[i, 1] - 1] = weights[i, 2];
-            }
- 
-            int[,] next = new int[numVerticies, numVerticies];
-            for (int i = 0; i < numVerticies; i++) {
-                for (int j = 0; j < numVerticies; j++) {
-                    if (i != j) {
-                        next[i, j] = j + 1;
-                    }
-                }
-            }
- 
-            for (int k = 0; k < numVerticies; k++) {
-                for (int i = 0; i < numVerticies; i++) {
-                    for (int j = 0; j < numVerticies; j++) {
-                        if (dist[i, k] + dist[k, j] < dist[i, j]) {
-                            dist[i, j] = dist[i, k] + dist[k, j];
-                            next[i, j] = next[i, k];
-                        }
-                    }
-                }
-            }
- 
-            PrintResult(dist, next);
-        }
- 
-        static void PrintResult(double[,] dist, int[,] next) {
-            Console.WriteLine("pair     dist    path");
-            for (int i = 0; i < next.GetLength(0); i++) {
-                for (int j = 0; j < next.GetLength(1); j++) {
-                    if (i != j) {
-                        int u = i + 1;
-                        int v = j + 1;
-                        string path = string.Format("{0} -> {1}    {2,2:G}     {3}", u, v, dist[i, j], u);
-                        do {
-                            u = next[u - 1, v - 1];
-                            path += " -> " + u;
-                        } while (u != v);
-                        Console.WriteLine(path);
-                    }
-                }
-            }
-        }
+       
  
     }
 }
