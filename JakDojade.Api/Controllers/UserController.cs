@@ -2,7 +2,9 @@
 using System.IO;
 using System.Threading.Tasks;
 using JakDojade.Core.Domain;
+using JakDojade.Infrastructure.Algorithm;
 using JakDojade.Infrastructure.Commands;
+using JakDojade.Infrastructure.Services;
 using JakDojade.Infrastructure.Services.Node;
 using JakDojade.Infrastructure.Services.User;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +20,12 @@ namespace JakDojade.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly INodeService _nodeService;
-        public UserController(IUserService userService, INodeService nodeService)
+        private readonly IGraphService _graphService;
+        public UserController(IUserService userService, INodeService nodeService, IGraphService graphService)
         {
             _userService = userService;
             _nodeService = nodeService;
+            _graphService = graphService;
         }
 
 
@@ -49,8 +53,8 @@ namespace JakDojade.Api.Controllers
             => Json(await _userService.LoginAsync(command.Email, command.Password));
 
 
-        [HttpGet("BusStop")]
-        public async Task<IActionResult> GetBusStop()
+        [HttpGet("BusStop/{source}/{target}")]
+        public async Task<IActionResult> GetBusStop(int source, int target)
         {
             try
             {   // Open the text file using a stream reader.
@@ -59,20 +63,18 @@ namespace JakDojade.Api.Controllers
                     // Read the stream to a string, and write the string to the console.
                     String line = sr.ReadToEnd();
                     Input array = JsonConvert.DeserializeObject<Input>(line);
-                    Graph newGraph = new Graph();
                     for(int i=0;i<array.Links.Count;i++)
                     {
-                        newGraph.Add(array.Links[i].Source, array.Links[i].Target, array.Links[i].Distance);
+                        Link link = new Link {Source = array.Links[i].Source, Target = array.Links[i].Target, Distance =array.Links[i].Distance};
+                        await _graphService.AddNewLink(link);
                     }
                     for (int i = 0; i < array.Nodes.Count;i++)
                     {
                         await _nodeService.AddAsync(array.Nodes[i].Id,array.Nodes[i].Stop_name); 
                     }
-
-                    return Json(newGraph, new JsonSerializerSettings
-                    {
-                        Formatting = Formatting.Indented
-                    });
+                    
+                   // DijkstraAlgorithm.dijkstra(newGraph.graph,0);
+                    return Json(_graphService.GetPath( source,target));
 
                     //Console.WriteLine(array);
                 }

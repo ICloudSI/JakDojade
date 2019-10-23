@@ -6,7 +6,6 @@ namespace JakDojade.Core.Domain
     public class Graph
     {
         public List<List<int>> graph;
-        public int V = 0;
 
         public Graph()
         {
@@ -15,28 +14,24 @@ namespace JakDojade.Core.Domain
 
         public void Add(int source, int target, int distance)
         {
-            if(graph.Count<=source || graph.Count <= target)
+            if (Math.Max(source, target) >= graph.Count)
             {
-                while(graph.Count <=source || graph.Count<=target )
+                int count = Math.Max(source, target);
+                while (graph.Count <= count)
                 {
                     graph.Add(new List<int>());
                 }
-            }
-            if(graph[source].Count <=target)
-            {
-                while(graph[source].Count<=target)
-                    graph[source].Add(-1);
-            }
-            if(graph[target].Count <= target)
-            {
-                while(graph[target].Count<=source)
-                    graph[target].Add(-1);
+                for (int i = 0; i < graph.Count; i++)
+                    while (graph[i].Count <= count)
+                    {
+                        graph[i].Add(-1);
+                    }
+
             }
 
             graph[source][target] = distance;
             graph[target][source] = distance;
         }
-       
- 
+
     }
 }
