@@ -51,8 +51,28 @@ namespace JakDojade.Infrastructure.Services.Node
             await _nodeRepository.AddAsync(newNode);
         }
 
+        public async Task<string> GetNameAsync(int id)
+        {
+             var node = await _nodeRepository.GetAsync(id);
 
+            if (node == null)
+            {
+                throw new Exception($"User with id: '{id}' does not exist.");
+            }
 
+            return node.Stop_name;
+        }
 
+        public async Task<int> GetIdAsync(string name)
+        {
+            var node = await _nodeRepository.GetAsync(name);
+
+            if (node == null)
+            {
+                throw new Exception($"User with name: '{name}' does not exist.");
+            }
+
+            return node.Id;
+        }
     }
 }

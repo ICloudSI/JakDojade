@@ -1,7 +1,7 @@
 ﻿using System;
 namespace JakDojade.Infrastructure.Commands
 {
-    public class Register
+    public class RegisterCommand
     {
         public string Email { get; set; }
         public string Username { get; set; }

@@ -32,7 +32,7 @@ namespace JakDojade.Infrastructure.Repository
             await Task.CompletedTask;
         }
 
-
-
+        public async Task<Node> GetAsync(string name)
+            => await Task.FromResult(_nodes.FirstOrDefault(x => x.Stop_name == name));
     }
 }

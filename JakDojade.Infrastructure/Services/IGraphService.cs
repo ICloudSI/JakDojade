@@ -9,7 +9,7 @@ namespace JakDojade.Infrastructure.Services
         Task<Graph> GetAsync();
 
         Task AddNewLink(Link link);
-        Task<PathDto> GetPath(int idSource, int idTarget);
+        Task<PathBusStops> GetPath(int idSource, int idTarget);
 
     }
 }

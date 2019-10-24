@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using JakDojade.Core.Domain;
 using JakDojade.Infrastructure.Algorithm;
 using JakDojade.Infrastructure.Commands;
+using JakDojade.Infrastructure.Dto;
 using JakDojade.Infrastructure.Services;
 using JakDojade.Infrastructure.Services.Node;
 using JakDojade.Infrastructure.Services.User;
@@ -41,7 +43,7 @@ namespace JakDojade.Api.Controllers
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Post([FromBody] Register command)
+        public async Task<IActionResult> Post([FromBody] RegisterCommand command)
         {
             await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Username, command.Password);
 
@@ -49,44 +51,9 @@ namespace JakDojade.Api.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<IActionResult> Post([FromBody]Login command)
+        public async Task<IActionResult> Post([FromBody]LoginCommand command)
             => Json(await _userService.LoginAsync(command.Email, command.Password));
 
-
-        [HttpGet("BusStop/{source}/{target}")]
-        public async Task<IActionResult> GetBusStop(int source, int target)
-        {
-            try
-            {   // Open the text file using a stream reader.
-                using (StreamReader sr = new StreamReader("/Users/kacperdziobczynski/Projects/JakDojade/solvroCity.json"))
-                {
-                    // Read the stream to a string, and write the string to the console.
-                    String line = sr.ReadToEnd();
-                    Input array = JsonConvert.DeserializeObject<Input>(line);
-                    for(int i=0;i<array.Links.Count;i++)
-                    {
-                        Link link = new Link {Source = array.Links[i].Source, Target = array.Links[i].Target, Distance =array.Links[i].Distance};
-                        await _graphService.AddNewLink(link);
-                    }
-                    for (int i = 0; i < array.Nodes.Count;i++)
-                    {
-                        await _nodeService.AddAsync(array.Nodes[i].Id,array.Nodes[i].Stop_name); 
-                    }
-                    
-                   // DijkstraAlgorithm.dijkstra(newGraph.graph,0);
-                    return Json(_graphService.GetPath( source,target));
-
-                    //Console.WriteLine(array);
-                }
-            }
-            catch (IOException e)
-            {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
-            }
-            return NoContent();
-
-        }
 
     }
 }

@@ -12,7 +12,7 @@ namespace JakDojade.Infrastructure.AutoMapper
             => new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<User, UserDto>();
-                cfg.CreateMap<Register, User>();
+                cfg.CreateMap<RegisterCommand, User>();
                 cfg.CreateMap<PathBusStops,PathDto>();
                
             })

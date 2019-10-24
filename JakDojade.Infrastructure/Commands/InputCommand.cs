@@ -3,7 +3,7 @@ using JakDojade.Core.Domain;
 
 namespace JakDojade.Infrastructure.Commands
 {
-    public class Input
+    public class InputCommand
     {
         public bool Directed {get; set;}
         public Graph Graph {get; set;}

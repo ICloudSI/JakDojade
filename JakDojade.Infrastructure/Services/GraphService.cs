@@ -32,10 +32,10 @@ namespace JakDojade.Infrastructure.Services
             return await _graphRepository.GetAsync();
         }
 
-        public async Task<PathDto> GetPath(int idSource, int idTarget)
+        public async Task<PathBusStops> GetPath(int idSource, int idTarget)
         {
             Graph graph = await _graphRepository.GetAsync();
-            return _mapper.Map<PathDto>(DijkstraAlgorithm.dijkstra(graph.graph,idSource,idTarget));
+            return DijkstraAlgorithm.dijkstra(graph.graph,idSource,idTarget);
             
         }
     }

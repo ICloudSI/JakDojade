@@ -5,7 +5,7 @@ using JakDojade.Infrastructure.Commands;
 
 namespace JakDojade.Core.Validation
 {
-    public class RegisterValidation : AbstractValidator<Register>
+    public class RegisterValidation : AbstractValidator<RegisterCommand>
     {
         public RegisterValidation()
         {
