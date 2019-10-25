@@ -13,8 +13,9 @@ namespace JakDojade.Infrastructure.AutoMapper
             {
                 cfg.CreateMap<User, UserDto>();
                 cfg.CreateMap<RegisterCommand, User>();
-                cfg.CreateMap<PathBusStops,PathDto>();
-               
+                cfg.CreateMap<PathBusStops, PathDto>();
+                cfg.CreateMap<Node, NodeDto>();
+
             })
             .CreateMapper();
     }

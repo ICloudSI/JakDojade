@@ -2,10 +2,11 @@
 using FluentValidation;
 using JakDojade.Core.Domain;
 using JakDojade.Infrastructure.Commands;
+using JakDojade.Infrastructure.Validation;
 
 namespace JakDojade.Core.Validation
 {
-    public class RegisterValidation : AbstractValidator<RegisterCommand>
+    public class RegisterValidation : AbstractValidator<RegisterCommand> , IValidation
     {
         public RegisterValidation()
         {
@@ -14,8 +15,8 @@ namespace JakDojade.Core.Validation
             RuleFor(user => user.Password)
                 .NotEmpty()
                 .Length(8, 100);
-            RuleFor(user => user.Username)
-                .NotEmpty();
+            //RuleFor(user => user.Username)
+            //    .NotEmpty();
                 
         }
     }

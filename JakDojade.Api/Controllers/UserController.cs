@@ -45,6 +45,8 @@ namespace JakDojade.Api.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Post([FromBody] RegisterCommand command)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
             await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Username, command.Password);
 
             return Created("/account", null);

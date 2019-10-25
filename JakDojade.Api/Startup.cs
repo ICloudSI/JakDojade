@@ -2,9 +2,12 @@
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
+using JakDojade.Core.Validation;
 using JakDojade.Infrastructure.IoC;
 using JakDojade.Infrastructure.Services;
 using JakDojade.Infrastructure.Settings;
+using JakDojade.Infrastructure.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using JakDojade.Api.Framework;
 
 namespace JakDojade.Api
 {
@@ -60,7 +64,7 @@ namespace JakDojade.Api
                     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
                 });
             services.AddControllers();
-
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IValidation>()) ;
             //return new AutofacServiceProvider(ApplicationContainer);
         }
 
@@ -84,7 +88,8 @@ namespace JakDojade.Api
 
             app.UseAuthorization();
             app.UseAuthentication();
-
+	
+            app.UseExceptionHandlerCustom();
             app.UseSwagger();
             
             app.UseSwaggerUI(c =>
