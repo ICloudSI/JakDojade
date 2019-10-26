@@ -13,11 +13,7 @@ namespace JakDojade.Infrastructure.Repository
         {
         }
 
-        private static readonly ISet<User> _users = new HashSet<User>
-            {
-                new User{Id=Guid.NewGuid(),Email="email1@test.com", Username="Janusz", Password="secret123", Role ="user"},
-                new User{Id=Guid.NewGuid(),Email="email2@test.com", Username="Andrzej", Password="secret123", Role ="user"}
-            };
+        private static readonly ISet<User> _users = new HashSet<User>();
 
         public async Task<User> GetAsync(Guid id)
             => await Task.FromResult(_users.SingleOrDefault(x => x.Id == id));

@@ -88,6 +88,8 @@ namespace JakDojade.Api
         {
             this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
 
+            var dataInitializer = app.ApplicationServices.GetService<IDataInitializer>();
+            dataInitializer.SeedAsync();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
