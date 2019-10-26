@@ -28,9 +28,9 @@ password: secret123
 ```
 already existing. 
 
-Adding from any file is planned.
-
 Login generates JWT Token.
+
+Adding from any file and connecting the database is planned
 
 ## Swagger
 
