@@ -18,6 +18,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using JakDojade.Api.Framework;
+using System.Reflection;
+using System.IO;
+using System;
 
 namespace JakDojade.Api
 {
@@ -58,13 +61,21 @@ namespace JakDojade.Api
                       ValidateAudience = false
                   };
               });
+            services.AddAuthorization(x => x.AddPolicy("HasAdminRole", p => p.RequireRole("admin")));
 
             services.AddSwaggerGen(c =>
                 {
-                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "JakDojade Api", Version = "v1" });
+                    c.DescribeAllEnumsAsStrings();
+                    c.DescribeStringEnumsInCamelCase();
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                    c.IncludeXmlComments(xmlPath);
                 });
+
             services.AddControllers();
-            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IValidation>()) ;
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<IValidation>());
             //return new AutofacServiceProvider(ApplicationContainer);
         }
 
@@ -86,16 +97,17 @@ namespace JakDojade.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
-	
+            app.UseAuthorization();
+
             app.UseExceptionHandlerCustom();
             app.UseSwagger();
             
             app.UseSwaggerUI(c =>
                {
-                   c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                   c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jak Dojade Api");
                });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

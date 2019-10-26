@@ -31,28 +31,57 @@ namespace JakDojade.Api.Controllers
         }
 
 
-        //   public async Task<IActionResult> Get()
-        //        => Json(await _userService.GetAsync());
-
-        [HttpGet("Browse")]
-        public async Task<IActionResult> GetAll()
-        {
-            var users = await _userService.BrowseAsync();
-
-            return Json(users);
-        }
+        /// <summary>
+        /// Register new user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /RegisterCommand
+        ///     {
+        ///        "Email": "test@test.com",
+        ///        "Username": "Dziki jamnik",
+        ///        "Password": "secret",
+        ///        "Role": "user"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="command"></param>
+        /// <returns>Returns new user</returns>
+        /// <response code="201">Created new user</response>    
+        /// <response code="400">Return message with error.</response>
 
         [HttpPost("Register")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Post([FromBody] RegisterCommand command)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Username, command.Password);
+            await _userService.RegisterAsync(Guid.NewGuid(), command.Email, command.Username, command.Password,command.Role);
 
             return Created("/account", null);
         }
 
+        /// <summary>
+        /// Login user
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /LoginCommand
+        ///     {
+        ///        "Email": "test@test.com",
+        ///        "Password": "secret123",
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="command"></param>
+        /// <returns>Login user and return JWT Token</returns>
+        /// <response code="200">Login user</response>    
+        /// <response code="500">Return message with error.</response>
         [HttpPost("Login")]
+        [ProducesResponseType(typeof(TokenDto),200)]
         public async Task<IActionResult> Post([FromBody]LoginCommand command)
             => Json(await _userService.LoginAsync(command.Email, command.Password));
 

@@ -48,9 +48,9 @@ namespace JakDojade.Infrastructure.Algorithm
                         shortestDistance = shortestDistances[vertexIndex];
                     }
                 }
-
+                
                 added[nearestVertex] = true;
-
+               
                 for (int vertexIndex = 0;
                         vertexIndex < nVertices;
                         vertexIndex++)
