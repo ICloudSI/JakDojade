@@ -4,6 +4,8 @@ using JakDojade.Core.Domain;
 using JakDojade.Core.Repository;
 using JakDojade.Infrastructure.Dto;
 using JakDojade.Infrastructure.Algorithm;
+using System.Linq;
+using System;
 
 namespace JakDojade.Infrastructure.Services
 {
@@ -35,6 +37,10 @@ namespace JakDojade.Infrastructure.Services
         public async Task<PathBusStops> GetPath(int idSource, int idTarget)
         {
             Graph graph = await _graphRepository.GetAsync();
+            if(graph.graph.Count<=Math.Max(idSource,idTarget))
+            return null;
+            
+            
             return DijkstraAlgorithm.dijkstra(graph.graph,idSource,idTarget);
             
         }
