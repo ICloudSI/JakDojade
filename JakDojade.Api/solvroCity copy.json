@@ -1,0 +1,134 @@
+﻿{
+    "directed": false,
+    "graph": {},
+    "links": [
+        {
+            "distance": 6,
+            "source": 0,
+            "target": 2
+        }
+    ],
+    "multigraph": false,
+    "nodes": [
+        {
+            "id": 0,
+            "stop_name": "Przystanek Zdenerwowany kabanos"
+        },
+        {
+            "id": 1,
+            "stop_name": "Przystanek Zdenerwowany frontend developer"
+        },
+        {
+            "id": 2,
+            "stop_name": "Przystanek Cudowny student PWr"
+        },
+        {
+            "id": 3,
+            "stop_name": "Przystanek Dziki jamnik"
+        },
+        {
+            "id": 4,
+            "stop_name": "Przystanek Zasmucony muczaczo"
+        },
+        {
+            "id": 5,
+            "stop_name": "Przystanek Zdenerwowany kabanos"
+        },
+        {
+            "id": 6,
+            "stop_name": "Przystanek Przepraszaj\u0105cy pythonowiec"
+        },
+        {
+            "id": 7,
+            "stop_name": "Przystanek Beznadziejny programista"
+        },
+        {
+            "id": 8,
+            "stop_name": "Przystanek Dziki backend developer"
+        },
+        {
+            "id": 9,
+            "stop_name": "Przystanek Cudowny backend developer"
+        },
+        {
+            "id": 10,
+            "stop_name": "Przystanek Odwa\u017cny backend developer"
+        },
+        {
+            "id": 11,
+            "stop_name": "Przystanek Dziki jamnik"
+        },
+        {
+            "id": 12,
+            "stop_name": "Przystanek Zdenerwowany kabanos"
+        },
+        {
+            "id": 13,
+            "stop_name": "Przystanek Odwa\u017cny pythonowiec"
+        },
+        {
+            "id": 14,
+            "stop_name": "Przystanek Zdenerwowany programista"
+        },
+        {
+            "id": 15,
+            "stop_name": "Przystanek Mi\u0119sny programista"
+        },
+        {
+            "id": 16,
+            "stop_name": "Przystanek Dziki student PWr"
+        },
+        {
+            "id": 17,
+            "stop_name": "Przystanek Solvrowy programista"
+        },
+        {
+            "id": 18,
+            "stop_name": "Przystanek Waleczny javascriptowiec"
+        },
+        {
+            "id": 19,
+            "stop_name": "Przystanek Dziki jamnik"
+        },
+        {
+            "id": 20,
+            "stop_name": "Przystanek Cudowny programista"
+        },
+        {
+            "id": 21,
+            "stop_name": "Przystanek Cudowny pythonowiec"
+        },
+        {
+            "id": 22,
+            "stop_name": "Przystanek Zasmucony student PWr"
+        },
+        {
+            "id": 23,
+            "stop_name": "Przystanek Zasmucony programista"
+        },
+        {
+            "id": 24,
+            "stop_name": "Przystanek Przepraszaj\u0105cy pythonowiec"
+        },
+        {
+            "id": 25,
+            "stop_name": "Przystanek Zdenerwowany pythonowiec"
+        },
+        {
+            "id": 26,
+            "stop_name": "Przystanek Dziki javascriptowiec"
+        },
+        {
+            "id": 27,
+            "stop_name": "Przystanek Mi\u0119sny backend developer"
+        },
+        {
+            "id": 28,
+            "stop_name": "Przystanek Zdenerwowany kabanos"
+        },
+        {
+            "id": 29,
+            "stop_name": "Przystanek Odwa\u017cny frontend developer"
+        }
+    ]
+}

@@ -30,7 +30,7 @@ namespace JakDojade.Api.Controllers
         /// <response code="200">Returns list of stops in Solvro City</response>
 
         [HttpGet("Stops")]
-        [ProducesResponseType(typeof(IEnumerable<NodeDto>),200)]
+        [ProducesResponseType(typeof(IEnumerable<NodeDto>), 200)]
         public async Task<IActionResult> GetBusStopAll()
         {
             var nodes = await _nodeService.BrowseAsync();
@@ -56,12 +56,16 @@ namespace JakDojade.Api.Controllers
         /// <response code="200">Returns list of stops in path and total distance.</response>    
         /// <response code="500">Return message with error.</response>
         [HttpPost]
-        [ProducesResponseType(typeof(PathDto),200)]
+        [ProducesResponseType(typeof(PathDto), 200)]
         public async Task<IActionResult> GetPath([FromBody]PathCommand command)
         {
 
             var nodes = await _graphService.GetPath(await _nodeService.GetIdAsync(command.Source),
                 await _nodeService.GetIdAsync(command.Target));
+            if (nodes == null || nodes.Distance == int.MaxValue)
+            {
+                return NotFound("Brak sciezki");
+            }
 
             PathDto pathDto = new PathDto();
             List<string> listNodeName = new List<string>();

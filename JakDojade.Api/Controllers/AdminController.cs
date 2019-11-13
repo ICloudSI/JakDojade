@@ -90,7 +90,7 @@ namespace JakDojade.Api.Controllers
         {
             try
             {   
-                using (StreamReader sr = new StreamReader("solvroCity.json"))
+                using (StreamReader sr = new StreamReader("solvroCity copy.json"))
                 {
                     String line = sr.ReadToEnd();
                     InputCommand array = JsonConvert.DeserializeObject<InputCommand>(line);
