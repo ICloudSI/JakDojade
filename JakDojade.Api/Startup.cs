@@ -65,6 +65,26 @@ namespace JakDojade.Api
 
             services.AddSwaggerGen(c =>
                 {
+                    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Description = "Authorization format : Bearer {token}",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey
+                    });
+                    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                        },
+                        new string[] { }
+                        }
+                    });
                     c.SwaggerDoc("v1", new OpenApiInfo { Title = "JakDojade Api", Version = "v1" });
                     c.DescribeAllEnumsAsStrings();
                     c.DescribeStringEnumsInCamelCase();
@@ -95,7 +115,7 @@ namespace JakDojade.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -104,7 +124,7 @@ namespace JakDojade.Api
 
             app.UseExceptionHandlerCustom();
             app.UseSwagger();
-            
+
             app.UseSwaggerUI(c =>
                {
                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Jak Dojade Api");
