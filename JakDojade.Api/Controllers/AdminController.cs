@@ -34,14 +34,21 @@ namespace JakDojade.Api.Controllers
         /// <returns>Returns list of users</returns>
         /// <response code="200">Returns list of users</response>    
         /// <response code="500">Return message with error.</response>
-        
+
         [HttpGet("Browse")]
-        [ProducesResponseType(typeof(IEnumerable<UserDto>),200)]
+        [ProducesResponseType(typeof(IEnumerable<UserDto>), 200)]
         public async Task<IActionResult> GetAll()
         {
             var users = await _userService.BrowseAsync();
 
             return Json(users);
+        }
+        [HttpGet("GetGraph")]
+        public async Task<IActionResult> GetGraph()
+        {
+            var graph = await _graphService.GetAsync();
+
+            return Json(graph);
         }
 
         /// <summary>
@@ -85,25 +92,41 @@ namespace JakDojade.Api.Controllers
         /// <returns>Returns list of stops in path and total distance.</returns>
         /// <response code="200">The file has loaded properly</response>  
         /// <response code="500">Return message with error</response>
-        [HttpGet("LoadData")]
-        public async Task<IActionResult> GetBusStop()
+        [HttpGet("LoadData/{fileName}")]
+        public async Task<IActionResult> GetBusStop(string fileName = "solvroCity.json")
         {
             try
-            {   
-                using (StreamReader sr = new StreamReader("solvroCity copy.json"))
+            {
+                using (StreamReader sr = new StreamReader(@fileName))
                 {
                     String line = sr.ReadToEnd();
                     InputCommand array = JsonConvert.DeserializeObject<InputCommand>(line);
 
-                    for (int i = 0; i < array.Links.Count; i++)
+                    
+                    if (array.Directed == false)
                     {
-                        Link link = new Link { Source = array.Links[i].Source, Target = array.Links[i].Target, Distance = array.Links[i].Distance };
-                        await _graphService.AddNewLink(link);
+                        for (int i = 0; i < array.Links.Count; i++)
+                        {
+                            Link link = new Link { Source = array.Links[i].Source, Target = array.Links[i].Target, Distance = array.Links[i].Distance };
+                            await _graphService.AddNewLinkUndirected(link);
+                        }
                     }
+                    if (array.Directed == true)
+                    {
+                        for (int i = 0; i < array.Links.Count; i++)
+                        {
+                            Link link = new Link { Source = array.Links[i].Source, Target = array.Links[i].Target, Distance = array.Links[i].Distance };
+                            await _graphService.AddNewLinkDirected(link);
+                        }
+                    }
+
+
                     for (int i = 0; i < array.Nodes.Count; i++)
                     {
                         await _nodeService.AddAsync(array.Nodes[i].Id, array.Nodes[i].Stop_name);
                     }
+
+
                     return Ok();
                 }
             }

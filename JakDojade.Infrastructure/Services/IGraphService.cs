@@ -8,7 +8,8 @@ namespace JakDojade.Infrastructure.Services
     {
         Task<Graph> GetAsync();
 
-        Task AddNewLink(Link link);
+        Task AddNewLinkDirected(Link link);
+        Task AddNewLinkUndirected(Link link);
         Task<PathBusStops> GetPath(int idSource, int idTarget);
 
     }

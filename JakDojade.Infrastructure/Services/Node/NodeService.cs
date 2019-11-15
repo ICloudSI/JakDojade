@@ -11,14 +11,10 @@ namespace JakDojade.Infrastructure.Services.Node
     {
         private readonly INodeRepository _nodeRepository;
         private readonly IMapper _mapper;
-        private readonly IEncrypter _encrypter;
-        private readonly IJwtHandler _jwtHandler;
-        public NodeService(INodeRepository nodeRepository, IJwtHandler jwtHandler, IMapper mapper, IEncrypter encrypter)
+        public NodeService(INodeRepository nodeRepository,  IMapper mapper)
         {
             _nodeRepository = nodeRepository;
-            _jwtHandler = jwtHandler;
             _mapper = mapper;
-            _encrypter = encrypter;
         }
         public async Task<Core.Domain.Node> GetAsync(int id)
         {
@@ -26,7 +22,7 @@ namespace JakDojade.Infrastructure.Services.Node
 
             if (node == null)
             {
-                throw new Exception($"User with id: '{id}' does not exist.");
+                throw new Exception($"Node with id: '{id}' does not exist.");
             }
 
             return node;
@@ -57,7 +53,7 @@ namespace JakDojade.Infrastructure.Services.Node
 
             if (node == null)
             {
-                throw new Exception($"User with id: '{id}' does not exist.");
+                throw new Exception($"Node with id: '{id}' does not exist.");
             }
 
             return node.Stop_name;
@@ -69,7 +65,7 @@ namespace JakDojade.Infrastructure.Services.Node
 
             if (node == null)
             {
-                throw new Exception($"User with name: '{name}' does not exist.");
+                throw new Exception($"Node with name: '{name}' does not exist.");
             }
 
             return node.Id;

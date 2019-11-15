@@ -13,21 +13,24 @@ namespace JakDojade.Infrastructure.Services
     {
         private readonly IGraphRepository _graphRepository;
         private readonly IMapper _mapper;
-        private readonly IEncrypter _encrypter;
-        private readonly IJwtHandler _jwtHandler;
-        public GraphService(IGraphRepository graphRepository, IJwtHandler jwtHandler, IMapper mapper, IEncrypter encrypter)
+        public GraphService(IGraphRepository graphRepository, IMapper mapper)
         {
             _graphRepository = graphRepository;
-            _jwtHandler = jwtHandler;
             _mapper = mapper;
-            _encrypter = encrypter;
         }
-        public async Task AddNewLink(Link link)
+        public async Task AddNewLinkDirected(Link link)
         {
             Graph graph = await _graphRepository.GetAsync();
-            graph.Add(link.Source, link.Target, link.Distance);
+            graph.AddDirected(link.Source, link.Target, link.Distance);
             await _graphRepository.UpdateAsync(graph);
         }
+        public async Task AddNewLinkUndirected(Link link)
+        {
+            Graph graph = await _graphRepository.GetAsync();
+            graph.AddUndirected(link.Source, link.Target, link.Distance);
+            await _graphRepository.UpdateAsync(graph);
+        }
+
 
         public async Task<Graph> GetAsync()
         {
