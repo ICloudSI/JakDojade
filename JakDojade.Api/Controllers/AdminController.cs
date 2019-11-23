@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using JakDojade.Core.Domain;
 using JakDojade.Infrastructure.Commands;
@@ -97,38 +98,41 @@ namespace JakDojade.Api.Controllers
         {
             try
             {
-                using (StreamReader sr = new StreamReader(@fileName))
-                {
-                    String line = sr.ReadToEnd();
-                    InputCommand array = JsonConvert.DeserializeObject<InputCommand>(line);
+                using var sr = new StreamReader(@fileName);
+                var line = sr.ReadToEnd();
+                var array = JsonConvert.DeserializeObject<InputCommand>(line);
 
                     
-                    if (array.Directed == false)
+                switch (array.Directed)
+                {
+                    case false:
                     {
-                        for (int i = 0; i < array.Links.Count; i++)
+                        foreach (var link in array.Links.Select(t => new Link { Source = t.Source, Target = t.Target, Distance = t.Distance }))
                         {
-                            Link link = new Link { Source = array.Links[i].Source, Target = array.Links[i].Target, Distance = array.Links[i].Distance };
                             await _graphService.AddNewLinkUndirected(link);
                         }
+
+                        break;
                     }
-                    if (array.Directed == true)
+                    case true:
                     {
-                        for (int i = 0; i < array.Links.Count; i++)
+                        foreach (var link in array.Links.Select(t => new Link { Source = t.Source, Target = t.Target, Distance = t.Distance }))
                         {
-                            Link link = new Link { Source = array.Links[i].Source, Target = array.Links[i].Target, Distance = array.Links[i].Distance };
                             await _graphService.AddNewLinkDirected(link);
                         }
+
+                        break;
                     }
-
-
-                    for (int i = 0; i < array.Nodes.Count; i++)
-                    {
-                        await _nodeService.AddAsync(array.Nodes[i].Id, array.Nodes[i].Stop_name);
-                    }
-
-
-                    return Ok();
                 }
+
+
+                foreach (var t in array.Nodes)
+                {
+                    await _nodeService.AddAsync(t.Id, t.Stop_name);
+                }
+
+
+                return Ok();
             }
             catch (FileNotFoundException e)
             {
@@ -138,9 +142,6 @@ namespace JakDojade.Api.Controllers
             {
                 throw new Exception("The file could not be read: " + e.Message);
             }
-
-            //return BadRequest();
-
         }
     }
 }

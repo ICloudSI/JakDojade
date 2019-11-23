@@ -12,10 +12,12 @@ namespace JakDojade.Infrastructure.Services
     public class GraphService : IGraphService
     {
         private readonly IGraphRepository _graphRepository;
+        private readonly IAlgorithm _algorithm;
         private readonly IMapper _mapper;
-        public GraphService(IGraphRepository graphRepository, IMapper mapper)
+        public GraphService(IGraphRepository graphRepository, IAlgorithm algorithm, IMapper mapper)
         {
             _graphRepository = graphRepository;
+            _algorithm = algorithm;
             _mapper = mapper;
         }
         public async Task AddNewLinkDirected(Link link)
@@ -42,10 +44,10 @@ namespace JakDojade.Infrastructure.Services
             Graph graph = await _graphRepository.GetAsync();
             if(graph.graph.Count<=Math.Max(idSource,idTarget))
             return null;
-            
-            
-            return DijkstraAlgorithm.dijkstra(graph.graph,idSource,idTarget);
-            
+
+            return _algorithm.GetPatch(graph.graph, idSource, idTarget);
+            //return DijkstraAlgorithm.dijkstra(graph.graph,idSource,idTarget);
+
         }
     }
 }

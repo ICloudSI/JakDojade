@@ -67,8 +67,8 @@ namespace JakDojade.Api.Controllers
                 return NotFound("Brak sciezki");
             }
 
-            PathDto pathDto = new PathDto();
-            List<string> listNodeName = new List<string>();
+            var pathDto = new PathDto();
+            var listNodeName = new List<string>();
             foreach (var node in nodes.Path)
             {
                 var nameNode = await _nodeService.GetNameAsync(node);

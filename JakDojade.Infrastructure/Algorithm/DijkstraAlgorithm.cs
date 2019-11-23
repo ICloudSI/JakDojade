@@ -5,12 +5,11 @@ using JakDojade.Core.Domain;
 
 namespace JakDojade.Infrastructure.Algorithm
 {
-    public class DijkstraAlgorithm
+    public class DijkstraAlgorithm : IAlgorithm
     {
         private static readonly int NO_PARENT = -1;
 
-        public static PathBusStops dijkstra(List<List<int>> adjacencyMatrix,
-                                            int startVertex, int target)
+        public PathBusStops GetPatch(List<List<int>> adjacencyMatrix, int startVertex, int targetVertex)
         {
             int nVertices = adjacencyMatrix.Count;
 
@@ -68,7 +67,7 @@ namespace JakDojade.Infrastructure.Algorithm
                 }
             }
 
-            return printSolution(startVertex, shortestDistances, parents, target);
+            return printSolution(startVertex, shortestDistances, parents, targetVertex);
         }
         private static PathBusStops printSolution(int startVertex,
                                         int[] distances,
@@ -92,5 +91,6 @@ namespace JakDojade.Infrastructure.Algorithm
             Console.Write(currentVertex + " ");
             path.Add(currentVertex);
         }
+
     }
 }
